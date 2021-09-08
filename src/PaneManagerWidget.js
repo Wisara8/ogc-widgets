@@ -21,18 +21,18 @@ const OneThirdTwoThirdsLayout = (props) => {
 const ItemSelectionView = ({ items, setRightSideFocus, rightSideFocus, updateSelected, selections }) => {
 
   return (
-    <aside className='one-third'>
+    <aside className='one-third cardlike'>
       {items.map((item) => {
         const isSelected = item === rightSideFocus ? "selected" : "";
         const isChosen = selections[item.title] ? "having-chosen" : "";
-        const classList = ["menu-item", isSelected, isChosen].join(" ");
+        const classList = ['cardlike', 'light', 'menu-item', isSelected, isChosen].join(" ");
         return (
-          <>
-            <h3 className={classList} onClick={() => setRightSideFocus(item)}>{item.title}</h3>
+          <div className={classList} onClick={() => setRightSideFocus(item)}>
+            <h3>{item.title}</h3>
             <p>${item.price}</p>
             {/* <img src={aTeam} alt="The A Team" className="small-image" /> */}
-            <button onClick={() => updateSelected(item.title)}>Add {item.title} to Project</button>
-          </>
+            <button onClick={() => updateSelected(item.title)}>{ isChosen ? '➖ Remove' : '➕ Add'}</button>
+          </div>
         )
       })}
     </aside>
@@ -48,7 +48,7 @@ const ItemDetailView = ({ rightSideFocus }) => {
   }
   // change temp left to two-third grid then add divs with subclasses
   return (
-    <aside className='two-third'>
+    <aside className='two-third cardlike'>
 
       {rightSideFocus.title === undefined ?
         <h1>Click for more info</h1> :

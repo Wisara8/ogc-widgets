@@ -25,25 +25,25 @@ const BottomBar = ({ selections, appData }) => {
   }
 
   return (
-    <div className="bottombar">
-      <h2>{title}</h2>
-      <h1 className="total-price">Total ${currentCost}</h1>
+    <div className="bottombar cardlike">
       <aside className="progress-bar">
+        <h2>{title}</h2>
+        <h1>Total ${currentCost}</h1>
         <p className="budget-tracker">${currentCost} / ${budget}</p>
         <ProgressBar value={currentCost} max={budget} />
-        <ProgressBar value={20} max={80} />
-        <ProgressBar value={70} max={80} />
       </aside>
 
-      <h2 className="item-pill-title">Item Pills</h2>
-      <div className="item-pill-box">
-        {
-          pillList.map((pill) => {
-            return (
-              <p onClick={() => updateSelected(pill)}>{pill}  X </p>
-            )
-          })
-        }
+      <div className="item-pills">
+        <h2>Your Build</h2>
+        <div className="item-pill-box">
+          {
+            pillList.map((pill) => {
+              return (
+                <p onClick={() => updateSelected(pill)}>{pill}  X </p>
+              )
+            })
+          }
+        </div>
       </div>
     </div>
   )

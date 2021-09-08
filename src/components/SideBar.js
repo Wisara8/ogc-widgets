@@ -4,25 +4,25 @@ const SideBar = ({ categories, selectedCategory, setSelectedCategory, selections
   const categoriesHavingChosen = getCategoriesHavingChosen(selections, appData);
 
   return (
-    <aside className="sidebar">
+    <aside className="sidebar cardlike">
       {
         Object.values(categories).map((category) => {
           const selectedClass = selectedCategory === category ? 'selected' : '';
           const hasChosenClass = categoriesHavingChosen.includes(category) ? 'having-chosen' : '';
-          const classList = ['menu-item', selectedClass, hasChosenClass].join(' ');
+          const classList = ['menu-item', 'cardlike', selectedClass, hasChosenClass].join(' ');
           const count = categoriesHavingChosen.filter(c => c === category).length;
           const categoryPrice = selections.length === 0 ? 0 : getPriceByCategory(category, selections, appData);
 
           return (
-            <>
-              <h3 className={classList} onClick={() => setSelectedCategory(category)} >{category}</h3>
+            <div className={classList} onClick={() => setSelectedCategory(category)} >
+              <h3>{category}</h3>
               {
                 category === "Personalize" ?
                   <small>Enter Project Info</small>
                   :
-                  <p style={{ margin: 0, padding: 0 }}><small style={{ margin: 0, padding: 0 }}>${categoryPrice} ({count} selected)</small></p>
+                  <p style={{ margin: 0, padding: 0 }}>${categoryPrice} <small style={{ margin: 0, padding: 0 }}>({count} selected)</small></p>
               }
-            </>
+            </div>
           );
         })
       }

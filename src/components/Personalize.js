@@ -4,7 +4,7 @@ import { UserInputContext } from "../contexts";
 const Personalize = () => {
   const { title, updateTitle, budget, updateBudget, isOffgrid, updateIsOffgrid } = useContext(UserInputContext);
   return (
-    <div>
+    <div className="personalize cardlike">
       <h1>Hello,</h1>
       <h1>{title}</h1>
       <h4>Project Name</h4>

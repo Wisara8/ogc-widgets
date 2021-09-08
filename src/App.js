@@ -1,4 +1,4 @@
-import './App.css';
+import './App-but-pretty.css';
 import PaneManagerWidget from './PaneManagerWidget';
 
 function App() {
