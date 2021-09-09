@@ -4,7 +4,7 @@ export const CATEGORIES = {
   weapons: "Weapons",
   sensors: "Sensors",
 };
-// add userinput category and to display new input compnent instead of van categories
+// add userinput category and to display new input component instead of van categories
 export const data = [
   {
     categories: [CATEGORIES.vans],

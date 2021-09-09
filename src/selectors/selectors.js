@@ -17,14 +17,12 @@ function getCategoriesHavingChosen(selections, appData) {
 
   // return itemTitles.reduce((acc, title) => [...acc, ...(appData.find((item) => item.title === title).categories)], [])
   return itemTitles.reduce((acc, title) => [...acc, appData.find((item) => item.title === title).categories], [])
-
-
   // return categoryList;
 }
 
-function garrettsCompleteCategories(selections, appCategories, appData) {
-  const itemTitles = Object.entries(selections).filter(([k, v]) => v).map(([k, v]) => k);
-  return itemTitles.reduce((acc, title) => [...acc, ...appData.find((item) => item.title === title).categories], []);
-}
+// function garrettsCompleteCategories(selections, appCategories, appData) {
+//   const itemTitles = Object.entries(selections).filter(([k, v]) => v).map(([k, v]) => k);
+//   return itemTitles.reduce((acc, title) => [...acc, ...appData.find((item) => item.title === title).categories], []);
+// }
 
 export default getCategoriesHavingChosen;
