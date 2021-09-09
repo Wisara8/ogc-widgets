@@ -3,7 +3,6 @@ import { UserInputContext } from "../contexts";
 
 const Personalize = () => {
   const { title, updateTitle, budget, updateBudget, isOffgrid, updateIsOffgrid } = useContext(UserInputContext);
-  // let tripLength = "A couple of nights";
   const [tripLength, setTripLength] = useState("A couple of nights");
 
   function sliderTripValue(value) {

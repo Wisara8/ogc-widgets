@@ -48,35 +48,38 @@ const ItemDetailView = ({ rightSideFocus }) => {
   }
   // change temp left to two-third grid then add divs with subclasses
   return (
-    <aside className='two-third cardlike'>
-
+    <aside className='cardlike'>
       {rightSideFocus.title === undefined ?
         <h1>Click for more info</h1> :
-        <div className="temp-left">
-          <h1>{rightSideFocus.title}</h1>
-          {
-            rightSideFocus.addons ?
-              <p>${rightSideFocus.price} - ${getUpperPriceRange(rightSideFocus.addons, rightSideFocus.price)}</p> :
-              <p>${rightSideFocus.price}</p>
-          }
-          <h4>Pros/Cons</h4>
-          <ul className="attribute-list" >
-            {rightSideFocus.pros.map((pro) => {
-              return (
-                <li className='pro'>{pro}</li>
-              )
-            })}
-            {rightSideFocus.cons.map((con) => {
-              return (
-                <li className='con'>{con}</li>
-              )
-            })}
-          </ul>
-          <ul className="cons"></ul>
-          <div className="item-focus-right">
-            <h4>Description</h4>
-            <p>{rightSideFocus.blurb}</p>
+        <div className="item-layout">
+          <div className="temp-left">
+
+            <h1>{rightSideFocus.title}</h1>
+            {
+              rightSideFocus.addons ?
+                <p>${rightSideFocus.price} - ${getUpperPriceRange(rightSideFocus.addons, rightSideFocus.price)}</p> :
+                <p>${rightSideFocus.price}</p>
+            }
+            <h4>Pros/Cons</h4>
+            <ul className="attribute-list" >
+              {rightSideFocus.pros.map((pro) => {
+                return (
+                  <li className='pro'>{pro}</li>
+                )
+              })}
+              {rightSideFocus.cons.map((con) => {
+                return (
+                  <li className='con'>{con}</li>
+                )
+              })}
+            </ul>
+            <ul className="cons"></ul>
+            <div className="item-focus-right">
+              <h4>Description</h4>
+              <p>{rightSideFocus.blurb}</p>
+            </div>
           </div>
+          <img src={`/${rightSideFocus.image}`} alt="If you're reading this it means our pic is MIA" className="col-image" />
         </div>
       }
     </aside>
