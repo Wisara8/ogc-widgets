@@ -1,3 +1,5 @@
+// Obsolete Data, refer to Google Sheet for current
+
 export const CATEGORIES = {
   personalize: "Personalize",
   vans: "Vans",
