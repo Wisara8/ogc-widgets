@@ -30,7 +30,6 @@ const ItemSelectionView = ({ items, setRightSideFocus, rightSideFocus, updateSel
           <div className={classList} onClick={() => setRightSideFocus(item)}>
             <h3>{item.title}</h3>
             <p>${item.price}</p>
-            {/* <img src={aTeam} alt="The A Team" className="small-image" /> */}
             <button onClick={() => updateSelected(item.title)}>{isChosen ? '➖ Remove' : '➕ Add'}</button>
           </div>
         )
@@ -46,7 +45,6 @@ const ItemDetailView = ({ rightSideFocus }) => {
     const maxAddonPrice = Math.max(...addonPrices);
     return maxAddonPrice + price;
   }
-  // change temp left to two-third grid then add divs with subclasses
   return (
     <aside className='cardlike'>
       {rightSideFocus.title === undefined ?
@@ -185,7 +183,6 @@ const PaneManagerWidget = () => {
   }
 
   if (loading || !appData) return <pre>⚡️ Loading ⚡️</pre>
-
   // const items = appData.filter((item) => item.categories.includes(selectedCategory));
   const items = appData.filter((item) => item.categories === selectedCategory);
 
