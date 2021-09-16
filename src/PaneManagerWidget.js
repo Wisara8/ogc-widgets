@@ -6,7 +6,6 @@ import Personalize from './components/Personalize.js';
 import { UserInputContext } from './contexts.js';
 import { useContext } from 'react';
 import useGoogleSheet from './hooks/useGoogleSheet.js';
-// import aTeam from './assets/ateam.jpeg';
 
 // WORK IN PROGRESS
 
