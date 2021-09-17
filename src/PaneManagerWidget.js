@@ -7,7 +7,7 @@ import { UserInputContext } from './contexts.js';
 import { useContext } from 'react';
 import useGoogleSheet from './hooks/useGoogleSheet.js';
 
-// WORK IN PROGRESS
+// WORK IN PROGRESS (be kind when judging)
 
 const OneThirdTwoThirdsLayout = (props) => {
   return (
@@ -125,6 +125,7 @@ const PaneManagerWidget = () => {
     return appCategories;
   }
 
+  // rework Personalize into a separate Google sheet tab
   // useEffect(() => {
   //   if (appCategories === undefined) {
   //     setTimeout(() =>
