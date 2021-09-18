@@ -32,3 +32,4 @@ const SideBar = ({ categories, selectedCategory, setSelectedCategory, selections
 }
 
 export default SideBar;
+

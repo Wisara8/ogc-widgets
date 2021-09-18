@@ -1,3 +1,4 @@
+// refractored
 function getCategoriesHavingChosen(selections, appData) {
   // const itemTitles = [];
   // still an object
