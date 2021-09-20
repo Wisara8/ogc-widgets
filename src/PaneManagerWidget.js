@@ -7,7 +7,7 @@ import { UserInputContext } from './contexts.js';
 import { useContext } from 'react';
 import useGoogleSheet from './hooks/useGoogleSheet.js';
 
-// WORK IN PROGRESS (be kind when judging)
+// WORK IN PROGRESS (be kind when reviewing)
 
 const OneThirdTwoThirdsLayout = (props) => {
   return (
@@ -30,6 +30,7 @@ const ItemSelectionView = ({ items, setRightSideFocus, rightSideFocus, updateSel
             <h3>{item.title}</h3>
             <p>${item.price}</p>
             <button onClick={() => updateSelected(item.title)}>{isChosen ? '➖ Remove' : '➕ Add'}</button>
+            {/* if is chosen is true add a quantity picker */}
           </div>
         )
       })}
