@@ -30,7 +30,7 @@ const ItemSelectionView = ({ items, setRightSideFocus, rightSideFocus, updateSel
             <h3>{item.title}</h3>
             <p>${item.price}</p>
             <button onClick={() => updateSelected(item.title)}>{isChosen ? '➖ Remove' : '➕ Add'}</button>
-            {/* if is chosen is true add a quantity picker */}
+            {/* if isChosen is true add a quantity picker */}
           </div>
         )
       })}
