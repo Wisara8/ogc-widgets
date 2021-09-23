@@ -1,10 +1,10 @@
 import './App-but-pretty.css';
-import PaneManagerWidget from './PaneManagerWidget';
+import PaneManager from './PaneManager';
 
 function App() {
   return (
     <div className="app">
-      <PaneManagerWidget />
+      <PaneManager />
     </div>
   );
 }

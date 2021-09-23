@@ -7,7 +7,7 @@ import { UserInputContext } from './contexts.js';
 import { useContext } from 'react';
 import useGoogleSheet from './hooks/useGoogleSheet.js';
 
-// WORK IN PROGRESS (be kind when reviewing)
+// WORK IN PROGRESS
 
 const OneThirdTwoThirdsLayout = (props) => {
   return (
@@ -109,7 +109,7 @@ const ItemContentArea = ({ items, updateSelected, selections }) => {
   )
 }
 
-const PaneManagerWidget = () => {
+const PaneManager = () => {
   const { loading, sheetData } = useGoogleSheet();
   const appData = sheetData;
   const appCategories = getCategories(appData);
@@ -198,4 +198,4 @@ const PaneManagerWidget = () => {
   )
 }
 
-export default PaneManagerWidget;
+export default PaneManager;
