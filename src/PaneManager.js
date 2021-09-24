@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-// import { /*data as appData ,*/ CATEGORIES as appCategories } from './appData.js';
+import { useState } from 'react';
 import SideBar from './components/SideBar';
 import BottomBar from './components/BottomBar';
 import Personalize from './components/Personalize.js';
@@ -30,7 +29,6 @@ const ItemSelectionView = ({ items, setRightSideFocus, rightSideFocus, updateSel
             <h3>{item.title}</h3>
             <p>${item.price}</p>
             <button onClick={() => updateSelected(item.title)}>{isChosen ? '➖ Remove' : '➕ Add'}</button>
-            {/* if isChosen is true add a quantity picker */}
           </div>
         )
       })}
@@ -126,15 +124,6 @@ const PaneManager = () => {
     return appCategories;
   }
 
-  // rework Personalize into a separate Google sheet tab
-  // useEffect(() => {
-  //   if (appCategories === undefined) {
-  //     setTimeout(() =>
-  //       setSelectedCategory(appCategories.Personalize)
-  //       , 3000);
-  //   }
-  // }, [])
-
   function getPriceByCategory(category, selections, appData) {
     const selectedItemsInCategory = getSelectedItemsByCategory(category, selections, appData);
     return selectedItemsInCategory.reduce((acc, item) => {
@@ -147,20 +136,11 @@ const PaneManager = () => {
   }
 
   function matchesCategory(item, category) {
-    // if (item.categories[0] === category) {
-    //   return true
-    // }
-    // return false;
     return item.categories === category;
   }
 
   function isSelected(item, selections) {
-    // if (selections[item.title]) {
-    //   return true;
-    // }
-    // return false;
     return Boolean(selections[item.title]);
-    // return !!selections[item.title]; // convert undefined to true then to false
   }
 
   function updateSelected(selection) {
@@ -184,7 +164,6 @@ const PaneManager = () => {
   }
 
   if (loading || !appData) return <pre>⚡️ Loading ⚡️</pre>
-  // const items = appData.filter((item) => item.categories.includes(selectedCategory));
   const items = appData.filter((item) => item.categories === selectedCategory);
 
   return (

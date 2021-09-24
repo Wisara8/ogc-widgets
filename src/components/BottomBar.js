@@ -4,7 +4,6 @@ import { useContext } from 'react';
 
 const BottomBar = ({ selections, appData }) => {
   const { title, budget, updateSelected } = useContext(UserInputContext);
-  // const pillList = Object.values(selections.filter((selected) => { return selected === true }));
   const pillList = [];
   const currentCost = sumSelectedPrices(appData, selections);
   for (const [key, value] of Object.entries(selections)) {
@@ -14,13 +13,6 @@ const BottomBar = ({ selections, appData }) => {
   };
 
   function sumSelectedPrices(appData, selections) {
-    // notes
-    // let total = 0;
-    // appData.forEach(item => {
-    //   if (selections[item.title]) {
-    //     total += item.price;
-    //   }
-    // });
     return appData.reduce((acc, item) => selections[item.title] ? acc + item.price : acc, 0);
   }
 
@@ -50,3 +42,4 @@ const BottomBar = ({ selections, appData }) => {
 }
 
 export default BottomBar;
+
