@@ -1,3 +1,5 @@
+// another function to set a partial build
+
 function vanRecommendation(formResponses) {
   //formResponses is an object {offgrid: "yes", budget: 75000, etc.... }
 
@@ -7,3 +9,4 @@ function vanRecommendation(formResponses) {
 }
 
 export default vanRecommendation;
+
