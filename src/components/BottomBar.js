@@ -1,6 +1,7 @@
 import ProgressBar from './ProgressBar';
 import { UserInputContext } from '../contexts';
 import { useContext } from 'react';
+import createGoogleSheet from '../hooks/createGoogleSheet';
 
 const BottomBar = ({ selections, appData }) => {
   const { title, budget, updateSelected } = useContext(UserInputContext);
@@ -37,6 +38,9 @@ const BottomBar = ({ selections, appData }) => {
           }
         </div>
       </div>
+      <button className="submit-button" onClick={() => createGoogleSheet(title)}>
+        Submit
+      </button>
     </div>
   )
 }
