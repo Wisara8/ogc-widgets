@@ -92,7 +92,7 @@ const CategoryDetails = ({ items, rightSideFocus, setRightSideFocus, updateSelec
 }
 
 const Interior = () => {
-
+  const [customItem, setCustomItem] = useState("")
   const [interiorItems, setInteriorItems] = useState([
     {
       name: "Queen Bed",
@@ -111,7 +111,11 @@ const Interior = () => {
       position: null,
     },
     {
-      name: "Hot Plate",
+      name: "Dining Table",
+      position: null,
+    },
+    {
+      name: "Pantry",
       position: null,
     }
   ]);
@@ -137,7 +141,6 @@ const Interior = () => {
   return (
     <OneThirdTwoThirdsLayout>
       <aside className='cardlike'>
-        {/* <h1>NEXTPOS: {nextPosition()} </h1> */}
         <h1>Interior Priority List</h1>
         <ol>
           {[...interiorItems].sort((a, b) => a.position - b.position).map(
@@ -150,6 +153,7 @@ const Interior = () => {
         </ol>
       </aside>
       <aside className='cardlike'>
+        <h1> Item List</h1>
         {interiorItems.map((item) => {
           return (<p onClick={() => {
             setInteriorItems(interiorItems.map(_item => {
@@ -163,6 +167,9 @@ const Interior = () => {
             {item.position && "✅"}
           </p>)
         })}
+        <h4>Custom item</h4>
+        <input type="text" style={{ zIndex: 1 }} onChange={(e) => setCustomItem(e.target.value)} />
+        <button onClick={() => setCustomItem(interiorItems.push({ name: customItem, position: null }))}>Add</button>
       </aside>
     </OneThirdTwoThirdsLayout>
   )
