@@ -91,6 +91,83 @@ const CategoryDetails = ({ items, rightSideFocus, setRightSideFocus, updateSelec
   )
 }
 
+const Interior = () => {
+
+  const [interiorItems, setInteriorItems] = useState([
+    {
+      name: "Queen Bed",
+      position: null,
+    },
+    {
+      name: "fridge",
+      position: null,
+    },
+    {
+      name: "kitchen sink",
+      position: null,
+    },
+    {
+      name: "induction cooktop",
+      position: null,
+    },
+    {
+      name: "Hot Plate",
+      position: null,
+    }
+  ]);
+
+  function nextPosition() {
+    const currentHighest = Math.max(
+      interiorItems.reduce((acc, next) => Math.max(acc, next.position), -Infinity),
+      0
+    );
+    return currentHighest + 1;
+  }
+
+  function move(item, direction) {
+    const originalPos = item.position;
+    const targetPos = direction === 'up' ? originalPos - 1 : originalPos + 1;
+    const switcheroo = interiorItems.find(item => item.position === targetPos);
+    setInteriorItems(interiorItems.map(_item => {
+      if (_item.name === item.name) return { ..._item, position: targetPos };
+      if (switcheroo && switcheroo.name === _item.name) return { ..._item, position: originalPos };
+      return _item;
+    }));
+  }
+  return (
+    <OneThirdTwoThirdsLayout>
+      <aside className='cardlike'>
+        {/* <h1>NEXTPOS: {nextPosition()} </h1> */}
+        <h1>Interior Priority List</h1>
+        <ol>
+          {[...interiorItems].sort((a, b) => a.position - b.position).map(
+            (item) => {
+              if (item.position) {
+                return <li>{item.name} <button onClick={() => move(item, 'up')}>⬆️</button> <button onClick={() => move(item, 'down')}>⬇️</button></li>
+              }
+            }
+          )}
+        </ol>
+      </aside>
+      <aside className='cardlike'>
+        {interiorItems.map((item) => {
+          return (<p onClick={() => {
+            setInteriorItems(interiorItems.map(_item => {
+              if (_item.name === item.name) {
+                _item.position = _item.position ? null : nextPosition();
+              }
+              return _item;
+            }))
+          }}>
+            {item.name}
+            {item.position && "✅"}
+          </p>)
+        })}
+      </aside>
+    </OneThirdTwoThirdsLayout>
+  )
+}
+
 const ItemContentArea = ({ items, updateSelected, selections }) => {
   const [rightSideFocus, setRightSideFocus] = useState([]);
   const { selectedCategory } = useContext(UserInputContext);
@@ -100,8 +177,9 @@ const ItemContentArea = ({ items, updateSelected, selections }) => {
       {
         selectedCategory === "Personalize" ?
           <Personalize />
-          :
-          <CategoryDetails items={items} rightSideFocus={rightSideFocus} setRightSideFocus={setRightSideFocus} updateSelected={updateSelected} selections={selections} />
+          : selectedCategory === "Interior" ?
+            <Interior />
+            : <CategoryDetails items={items} rightSideFocus={rightSideFocus} setRightSideFocus={setRightSideFocus} updateSelected={updateSelected} selections={selections} />
       }
     </section>
   )

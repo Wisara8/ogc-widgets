@@ -26,6 +26,10 @@ const SideBar = ({ categories, selectedCategory, setSelectedCategory, selections
           );
         })
       }
+      <div className={'menu-item cardlike'} onClick={() => setSelectedCategory("Interior")} >
+        <h3>Interior</h3>
+
+      </div>
 
     </aside>
   )
