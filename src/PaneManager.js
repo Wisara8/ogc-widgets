@@ -111,13 +111,18 @@ const Interior = () => {
       position: null,
     },
     {
-      name: "Dining Table",
+      name: "Dining Area",
       position: null,
     },
     {
-      name: "Pantry",
+      name: "2 piece bathroom",
       position: null,
-    }
+    },
+    {
+      name: "3 piece bathroom",
+      position: null,
+    },
+    // add +/- to scale up items. i.e. 2 -> 3 -> Deluxe Bathroom or small/med/large kitchen
   ]);
 
   function nextPosition() {

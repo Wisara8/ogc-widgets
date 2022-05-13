@@ -57,7 +57,7 @@ const Personalize = () => {
           <p>{tripLength}</p>
           <p>full build? Y/N</p>
           <p>If no Category list appears here</p>
-          <p>Clients click from list to populate sidebar</p>
+          <p>Click from list to populate sidebar</p>
         </div>
       </aside>
       <aside className="p3-col">
