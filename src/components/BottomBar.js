@@ -15,7 +15,17 @@ const BottomBar = ({ selections, appData }) => {
 
   function sumSelectedPrices(appData, selections) {
     return appData.reduce((acc, item) => selections[item.title] ? acc + item.price : acc, 0);
-  }
+  };
+
+  function findPrice(pillTitle, appData) {
+    // console.log(pillTitle);
+    // console.log(appData);
+    for (const row of appData) {
+      if (row.title === pillTitle) {
+        return row.price;
+      }
+    };
+  };
 
   return (
     <div className="bottombar cardlike">
@@ -32,7 +42,8 @@ const BottomBar = ({ selections, appData }) => {
           {
             pillList.map((pill) => {
               return (
-                <p onClick={() => updateSelected(pill)}>{pill}  X </p>
+                <p onClick={() => updateSelected(pill)}>{pill}  ${findPrice(pill, appData)}</p>
+
               )
             })
           }

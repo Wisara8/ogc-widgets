@@ -200,6 +200,7 @@ const ItemContentArea = ({ items, updateSelected, selections }) => {
 const PaneManager = () => {
   const { loading, sheetData } = useGoogleSheet();
   const appData = sheetData;
+  // console.log(sheetData);
   const appCategories = getCategories(appData);
   const [selectedCategory, setSelectedCategory] = useState("Personalize");
   const [selections, setSelections] = useState({});
