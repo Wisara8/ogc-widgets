@@ -17,7 +17,6 @@ const OneThirdTwoThirdsLayout = (props) => {
 }
 
 const ItemSelectionView = ({ items, setRightSideFocus, rightSideFocus, updateSelected, selections }) => {
-
   return (
     <aside className='one-third cardlike'>
       {items.map((item) => {
@@ -28,7 +27,7 @@ const ItemSelectionView = ({ items, setRightSideFocus, rightSideFocus, updateSel
           <div className={classList} onClick={() => setRightSideFocus(item)}>
             <h3>{item.title}</h3>
             <p>${item.price}</p>
-            <button onClick={() => updateSelected(item.title)}>{isChosen ? '➖ Remove' : '➕ Add'}</button>
+            <button onClick={() => updateSelected(item.title, item.categories)}>{isChosen ? '➖ Remove' : '➕ Add'}</button>
           </div>
         )
       })}
@@ -200,6 +199,7 @@ const ItemContentArea = ({ items, updateSelected, selections }) => {
 const PaneManager = () => {
   const { loading, sheetData } = useGoogleSheet();
   const appData = sheetData;
+  // console.log("appData: ", appData);
   const appCategories = getCategories(appData);
   const [selectedCategory, setSelectedCategory] = useState("Personalize");
   const [selections, setSelections] = useState({});
@@ -233,7 +233,36 @@ const PaneManager = () => {
     return Boolean(selections[item.title]);
   }
 
-  function updateSelected(selection) {
+  //new
+  function configCategories(appData) {
+    const configuredCategories = {};
+    appData.map(item => configuredCategories[item.categories] = item.singleSelect);
+
+    return configuredCategories;
+  }
+
+  function unselectAllFromCategory(currentCategory) {
+    //check list of items grouped per category for selected & deselect if true
+    const alreadySelected = appData.filter(item => matchesCategory(item, currentCategory) && isSelected(item, selections));
+    // console.log("uncheck: ", alreadySelected[0]);
+    if (alreadySelected[0] !== undefined) {
+      console.log("if check: ", alreadySelected[0].title);
+      setSelections({ ...selections, [alreadySelected[0].title]: false });
+      console.log("selections: ", selections);
+
+    }
+  }
+
+  function updateSelected(selection, currentCategory) {
+    //new
+    const singleSelect = configCategories(appData);
+    // console.log("cc: ", singleSelect);
+    if (singleSelect[currentCategory] === "TRUE") {
+      // console.log("check: ", currentCategory);
+      unselectAllFromCategory(currentCategory);
+    }
+
+    //previous
     if (selections[selection]) {
       setSelections({ ...selections, [selection]: !selections[selection] });
     } else {
