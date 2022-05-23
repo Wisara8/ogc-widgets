@@ -200,12 +200,11 @@ const ItemContentArea = ({ items, updateSelected, selections }) => {
 const PaneManager = () => {
   const { loading, sheetData } = useGoogleSheet();
   const appData = sheetData;
-  // console.log(sheetData);
   const appCategories = getCategories(appData);
   const [selectedCategory, setSelectedCategory] = useState("Personalize");
   const [selections, setSelections] = useState({});
   const [title, setTitle] = useState("Give Your Van a Name");
-  const [budget, setBudget] = useState(60000);
+  const [budget, setBudget] = useState(120000);
   const [isOffgrid, setIsOffgrid] = useState("yes");
 
   function getCategories(appData) {
