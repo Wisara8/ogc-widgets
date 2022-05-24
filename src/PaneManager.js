@@ -247,7 +247,8 @@ const PaneManager = () => {
     // console.log("uncheck: ", alreadySelected[0]);
     if (alreadySelected[0] !== undefined) {
       console.log("if check: ", alreadySelected[0].title);
-      setSelections({ ...selections, [alreadySelected[0].title]: false });
+      // setSelections({ ...selections, [alreadySelected[0].title]: false });
+      setSelections(previousSelections => ({ ...previousSelections, [alreadySelected[0].title]: false }));
       console.log("selections: ", selections);
 
     }
@@ -257,16 +258,22 @@ const PaneManager = () => {
     //new
     const singleSelect = configCategories(appData);
     // console.log("cc: ", singleSelect);
-    if (singleSelect[currentCategory] === "TRUE") {
-      // console.log("check: ", currentCategory);
-      unselectAllFromCategory(currentCategory);
-    }
+    // if (singleSelect[currentCategory] === "TRUE") {
+    //   // console.log("check: ", currentCategory);
+    //   unselectAllFromCategory(currentCategory);
+    // }
 
-    //previous
+    //previous + new
     if (selections[selection]) {
-      setSelections({ ...selections, [selection]: !selections[selection] });
+      // setSelections({ ...selections, [selection]: !selections[selection] });
+      setSelections(previousSelections => ({ ...previousSelections, [selection]: !previousSelections[selection] }));
     } else {
-      setSelections({ ...selections, [selection]: true });
+      // setSelections({ ...selections, [selection]: true });
+      if (singleSelect[currentCategory] === "TRUE") {
+        // console.log("check: ", currentCategory);
+        unselectAllFromCategory(currentCategory);
+      }
+      setSelections(previousSelections => ({ ...previousSelections, [selection]: true }));
     };
   }
 
