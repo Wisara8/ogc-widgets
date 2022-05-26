@@ -244,7 +244,6 @@ const PaneManager = () => {
   function unselectAllFromCategory(currentCategory) {
     //check list of items grouped per category for selected & deselect if true
     const alreadySelected = appData.filter(item => matchesCategory(item, currentCategory) && isSelected(item, selections));
-    // console.log("uncheck: ", alreadySelected[0]);
     if (alreadySelected[0] !== undefined) {
       console.log("if check: ", alreadySelected[0].title);
       // setSelections({ ...selections, [alreadySelected[0].title]: false });
@@ -257,11 +256,6 @@ const PaneManager = () => {
   function updateSelected(selection, currentCategory) {
     //new
     const singleSelect = configCategories(appData);
-    // console.log("cc: ", singleSelect);
-    // if (singleSelect[currentCategory] === "TRUE") {
-    //   // console.log("check: ", currentCategory);
-    //   unselectAllFromCategory(currentCategory);
-    // }
 
     //previous + new
     if (selections[selection]) {
