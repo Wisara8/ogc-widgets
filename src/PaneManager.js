@@ -199,7 +199,6 @@ const ItemContentArea = ({ items, updateSelected, selections }) => {
 const PaneManager = () => {
   const { loading, sheetData } = useGoogleSheet();
   const appData = sheetData;
-  // console.log("appData: ", appData);
   const appCategories = getCategories(appData);
   const [selectedCategory, setSelectedCategory] = useState("Personalize");
   const [selections, setSelections] = useState({});
@@ -259,12 +258,9 @@ const PaneManager = () => {
 
     //previous + new
     if (selections[selection]) {
-      // setSelections({ ...selections, [selection]: !selections[selection] });
       setSelections(previousSelections => ({ ...previousSelections, [selection]: !previousSelections[selection] }));
     } else {
-      // setSelections({ ...selections, [selection]: true });
       if (singleSelect[currentCategory] === "TRUE") {
-        // console.log("check: ", currentCategory);
         unselectAllFromCategory(currentCategory);
       }
       setSelections(previousSelections => ({ ...previousSelections, [selection]: true }));
