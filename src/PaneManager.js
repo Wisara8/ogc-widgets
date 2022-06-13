@@ -189,17 +189,13 @@ const ItemContentArea = ({ items, updateSelected, selections }) => {
       {
         selectedCategory === "Personalize" ?
           <Personalize />
-<<<<<<< HEAD:src/PaneManagerWidget.js
-          : selectedCategory === "Layout" ?
+        : selectedCategory === "Layout" ?
           <OneThirdTwoThirdsLayout>
             <LayoutPicker />
           </OneThirdTwoThirdsLayout>
-          : <CategoryDetails items={items} rightSideFocus={rightSideFocus} setRightSideFocus={setRightSideFocus} updateSelected={updateSelected} selections={selections} />
-=======
-          : selectedCategory === "Interior" ?
-            <Interior />
-            : <CategoryDetails items={items} rightSideFocus={rightSideFocus} setRightSideFocus={setRightSideFocus} updateSelected={updateSelected} selections={selections} />
->>>>>>> main:src/PaneManager.js
+        : selectedCategory === "Interior" ?
+          <Interior />
+        : <CategoryDetails items={items} rightSideFocus={rightSideFocus} setRightSideFocus={setRightSideFocus} updateSelected={updateSelected} selections={selections} />
       }
     </section>
   )
