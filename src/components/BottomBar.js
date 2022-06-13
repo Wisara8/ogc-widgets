@@ -1,10 +1,10 @@
 import ProgressBar from './ProgressBar';
 import { UserInputContext } from '../contexts';
 import { useContext } from 'react';
+import createGoogleSheet from '../hooks/createGoogleSheet';
 
 const BottomBar = ({ selections, appData }) => {
   const { title, budget, updateSelected } = useContext(UserInputContext);
-  // const pillList = Object.values(selections.filter((selected) => { return selected === true }));
   const pillList = [];
   const currentCost = sumSelectedPrices(appData, selections);
   for (const [key, value] of Object.entries(selections)) {
@@ -14,15 +14,18 @@ const BottomBar = ({ selections, appData }) => {
   };
 
   function sumSelectedPrices(appData, selections) {
-    // notes
-    // let total = 0;
-    // appData.forEach(item => {
-    //   if (selections[item.title]) {
-    //     total += item.price;
-    //   }
-    // });
     return appData.reduce((acc, item) => selections[item.title] ? acc + item.price : acc, 0);
-  }
+  };
+
+  function findPrice(pillTitle, appData) {
+    // console.log(pillTitle);
+    // console.log(appData);
+    for (const row of appData) {
+      if (row.title === pillTitle) {
+        return row.price;
+      }
+    };
+  };
 
   return (
     <div className="bottombar cardlike">
@@ -39,14 +42,19 @@ const BottomBar = ({ selections, appData }) => {
           {
             pillList.map((pill) => {
               return (
-                <p onClick={() => updateSelected(pill)}>{pill}  X </p>
+                <p onClick={() => updateSelected(pill)}>{pill}  ${findPrice(pill, appData)}</p>
+
               )
             })
           }
         </div>
       </div>
+      <button className="submit-button" onClick={() => createGoogleSheet(title)}>
+        Submit
+      </button>
     </div>
   )
 }
 
 export default BottomBar;
+

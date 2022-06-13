@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-// import { /*data as appData ,*/ CATEGORIES as appCategories } from './appData.js';
+import { useState } from 'react';
 import SideBar from './components/SideBar';
 import BottomBar from './components/BottomBar';
 import Personalize from './components/Personalize.js';
@@ -7,7 +6,6 @@ import { UserInputContext } from './contexts.js';
 import { useContext } from 'react';
 import useGoogleSheet from './hooks/useGoogleSheet.js';
 import LayoutPicker from './LayoutPicker';
-// import aTeam from './assets/ateam.jpeg';
 
 // WORK IN PROGRESS
 
@@ -20,7 +18,6 @@ const OneThirdTwoThirdsLayout = (props) => {
 }
 
 const ItemSelectionView = ({ items, setRightSideFocus, rightSideFocus, updateSelected, selections }) => {
-
   return (
     <aside className='one-third cardlike'>
       {items.map((item) => {
@@ -31,8 +28,7 @@ const ItemSelectionView = ({ items, setRightSideFocus, rightSideFocus, updateSel
           <div className={classList} onClick={() => setRightSideFocus(item)}>
             <h3>{item.title}</h3>
             <p>${item.price}</p>
-            {/* <img src={aTeam} alt="The A Team" className="small-image" /> */}
-            <button onClick={() => updateSelected(item.title)}>{isChosen ? '➖ Remove' : '➕ Add'}</button>
+            <button onClick={() => updateSelected(item.title, item.categories)}>{isChosen ? '➖ Remove' : '➕ Add'}</button>
           </div>
         )
       })}
@@ -47,7 +43,6 @@ const ItemDetailView = ({ rightSideFocus }) => {
     const maxAddonPrice = Math.max(...addonPrices);
     return maxAddonPrice + price;
   }
-  // change temp left to two-third grid then add divs with subclasses
   return (
     <aside className='cardlike'>
       {rightSideFocus.title === undefined ?
@@ -80,7 +75,7 @@ const ItemDetailView = ({ rightSideFocus }) => {
               <p>{rightSideFocus.blurb}</p>
             </div>
           </div>
-          <img src={`/${rightSideFocus.image}`} alt="If you're reading this it means our pic is MIA" className="col-image" />
+          <img src={rightSideFocus.image} alt="If you're reading this it means our pic is MIA" className="col-image" />
         </div>
       }
     </aside>
@@ -96,6 +91,95 @@ const CategoryDetails = ({ items, rightSideFocus, setRightSideFocus, updateSelec
   )
 }
 
+const Interior = () => {
+  const [customItem, setCustomItem] = useState("")
+  const [interiorItems, setInteriorItems] = useState([
+    {
+      name: "Queen Bed",
+      position: null,
+    },
+    {
+      name: "fridge",
+      position: null,
+    },
+    {
+      name: "kitchen sink",
+      position: null,
+    },
+    {
+      name: "induction cooktop",
+      position: null,
+    },
+    {
+      name: "Dining Area",
+      position: null,
+    },
+    {
+      name: "2 piece bathroom",
+      position: null,
+    },
+    {
+      name: "3 piece bathroom",
+      position: null,
+    },
+    // add +/- to scale up items. i.e. 2 -> 3 -> Deluxe Bathroom or small/med/large kitchen
+  ]);
+
+  function nextPosition() {
+    const currentHighest = Math.max(
+      interiorItems.reduce((acc, next) => Math.max(acc, next.position), -Infinity),
+      0
+    );
+    return currentHighest + 1;
+  }
+
+  function move(item, direction) {
+    const originalPos = item.position;
+    const targetPos = direction === 'up' ? originalPos - 1 : originalPos + 1;
+    const switcheroo = interiorItems.find(item => item.position === targetPos);
+    setInteriorItems(interiorItems.map(_item => {
+      if (_item.name === item.name) return { ..._item, position: targetPos };
+      if (switcheroo && switcheroo.name === _item.name) return { ..._item, position: originalPos };
+      return _item;
+    }));
+  }
+  return (
+    <OneThirdTwoThirdsLayout>
+      <aside className='cardlike'>
+        <h1>Interior Priority List</h1>
+        <ol>
+          {[...interiorItems].sort((a, b) => a.position - b.position).map(
+            (item) => {
+              if (item.position) {
+                return <li>{item.name} <button onClick={() => move(item, 'up')}>⬆️</button> <button onClick={() => move(item, 'down')}>⬇️</button></li>
+              }
+            }
+          )}
+        </ol>
+      </aside>
+      <aside className='cardlike'>
+        <h1> Item List</h1>
+        {interiorItems.map((item) => {
+          return (<p onClick={() => {
+            setInteriorItems(interiorItems.map(_item => {
+              if (_item.name === item.name) {
+                _item.position = _item.position ? null : nextPosition();
+              }
+              return _item;
+            }))
+          }}>
+            {item.name}
+            {item.position && "✅"}
+          </p>)
+        })}
+        <h4>Custom item</h4>
+        <input type="text" style={{ zIndex: 1 }} onChange={(e) => setCustomItem(e.target.value)} />
+        <button onClick={() => setCustomItem(interiorItems.push({ name: customItem, position: null }))}>Add</button>
+      </aside>
+    </OneThirdTwoThirdsLayout>
+  )
+}
+
 const ItemContentArea = ({ items, updateSelected, selections }) => {
   const [rightSideFocus, setRightSideFocus] = useState([]);
   const { selectedCategory } = useContext(UserInputContext);
@@ -105,24 +189,30 @@ const ItemContentArea = ({ items, updateSelected, selections }) => {
       {
         selectedCategory === "Personalize" ?
           <Personalize />
+<<<<<<< HEAD:src/PaneManagerWidget.js
           : selectedCategory === "Layout" ?
           <OneThirdTwoThirdsLayout>
             <LayoutPicker />
           </OneThirdTwoThirdsLayout>
           : <CategoryDetails items={items} rightSideFocus={rightSideFocus} setRightSideFocus={setRightSideFocus} updateSelected={updateSelected} selections={selections} />
+=======
+          : selectedCategory === "Interior" ?
+            <Interior />
+            : <CategoryDetails items={items} rightSideFocus={rightSideFocus} setRightSideFocus={setRightSideFocus} updateSelected={updateSelected} selections={selections} />
+>>>>>>> main:src/PaneManager.js
       }
     </section>
   )
 }
 
-const PaneManagerWidget = () => {
+const PaneManager = () => {
   const { loading, sheetData } = useGoogleSheet();
   const appData = sheetData;
   const appCategories = getCategories(appData);
   const [selectedCategory, setSelectedCategory] = useState("Personalize");
   const [selections, setSelections] = useState({});
   const [title, setTitle] = useState("Give Your Van a Name");
-  const [budget, setBudget] = useState(60000);
+  const [budget, setBudget] = useState(120000);
   const [isOffgrid, setIsOffgrid] = useState("yes");
 
   function getCategories(appData) {
@@ -132,14 +222,6 @@ const PaneManagerWidget = () => {
     console.log(appCategories);
     return { ...appCategories, Layout: 'Layout', };
   }
-
-  // useEffect(() => {
-  //   if (appCategories === undefined) {
-  //     setTimeout(() =>
-  //       setSelectedCategory(appCategories.Personalize)
-  //       , 3000);
-  //   }
-  // }, [])
 
   function getPriceByCategory(category, selections, appData) {
     const selectedItemsInCategory = getSelectedItemsByCategory(category, selections, appData);
@@ -153,27 +235,45 @@ const PaneManagerWidget = () => {
   }
 
   function matchesCategory(item, category) {
-    // if (item.categories[0] === category) {
-    //   return true
-    // }
-    // return false;
     return item.categories === category;
   }
 
   function isSelected(item, selections) {
-    // if (selections[item.title]) {
-    //   return true;
-    // }
-    // return false;
     return Boolean(selections[item.title]);
-    // return !!selections[item.title]; // convert undefined to true then to false
   }
 
-  function updateSelected(selection) {
+  //new
+  function configCategories(appData) {
+    const configuredCategories = {};
+    appData.map(item => configuredCategories[item.categories] = item.singleSelect);
+
+    return configuredCategories;
+  }
+
+  function unselectAllFromCategory(currentCategory) {
+    //check list of items grouped per category for selected & deselect if true
+    const alreadySelected = appData.filter(item => matchesCategory(item, currentCategory) && isSelected(item, selections));
+    if (alreadySelected[0] !== undefined) {
+      console.log("if check: ", alreadySelected[0].title);
+      // setSelections({ ...selections, [alreadySelected[0].title]: false });
+      setSelections(previousSelections => ({ ...previousSelections, [alreadySelected[0].title]: false }));
+      console.log("selections: ", selections);
+
+    }
+  }
+
+  function updateSelected(selection, currentCategory) {
+    //new
+    const singleSelect = configCategories(appData);
+
+    //previous + new
     if (selections[selection]) {
-      setSelections({ ...selections, [selection]: !selections[selection] });
+      setSelections(previousSelections => ({ ...previousSelections, [selection]: !previousSelections[selection] }));
     } else {
-      setSelections({ ...selections, [selection]: true });
+      if (singleSelect[currentCategory] === "TRUE") {
+        unselectAllFromCategory(currentCategory);
+      }
+      setSelections(previousSelections => ({ ...previousSelections, [selection]: true }));
     };
   }
 
@@ -190,8 +290,6 @@ const PaneManagerWidget = () => {
   }
 
   if (loading || !appData) return <pre>⚡️ Loading ⚡️</pre>
-
-  // const items = appData.filter((item) => item.categories.includes(selectedCategory));
   const items = appData.filter((item) => item.categories === selectedCategory);
 
   return (
@@ -205,4 +303,4 @@ const PaneManagerWidget = () => {
   )
 }
 
-export default PaneManagerWidget;
+export default PaneManager;

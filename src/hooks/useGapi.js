@@ -14,14 +14,15 @@ export default function useGapi(onLoad) {
   }, [onLoad]);
 }
 
-function initGoogleSheet(onLoad, timeout=100) {
+function initGoogleSheet(onLoad, timeout = 100) {
   if (timeout < 1) throw new Error('Timed out trying to do initGoogleSheet');
-  if (!window.gapi) { return window.requestAnimationFrame(() => initGoogleSheet(onLoad, timeout-1)) }
+  if (!window.gapi) { return window.requestAnimationFrame(() => initGoogleSheet(onLoad, timeout - 1)) }
   return window.gapi.load('client', () => gapiStart(onLoad));
 }
 
 function gapiStart(onLoad) {
   return window.gapi.client.init({
     'apiKey': process.env.REACT_APP_SHEET_API_KEY,
+    'discoveryDocs': ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
   }).then(onLoad);
 };

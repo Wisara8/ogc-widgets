@@ -10,12 +10,12 @@ function useGoogleSheet() {
   useGapi(() => setLoading(false));
 
   useEffect(() => {
-    if (loading) return () => {};
-    if (!window.gapi) { console.error('Expected GAPI to be loaded, and yet...'); return () => {} }
-    if (!window.gapi.client?.request) { console.error('Expected GAPI to be initialized, and yet...'); return () => {} }
+    if (loading) return () => { };
+    if (!window.gapi) { console.error('Expected GAPI to be loaded, and yet...'); return () => { } }
+    if (!window.gapi.client?.request) { console.error('Expected GAPI to be initialized, and yet...'); return () => { } }
     window.gapi.client.request({ path: sheetUrl })
-    .then(parseSheet)
-    .then(setSheetData);
+      .then(parseSheet)
+      .then(setSheetData);
   }, [loading, sheetUrl]);
 
   return {
@@ -35,9 +35,9 @@ function parseSheet(response) {
   return rows.map(row =>
     row.reduce((acc, next, idx) => {
       try {
-        return ({...acc, [columnNames[idx]]: JSON.parse(next) })
+        return ({ ...acc, [columnNames[idx]]: JSON.parse(next) })
       } catch {
-        return ({...acc, [columnNames[idx]]: next })
+        return ({ ...acc, [columnNames[idx]]: next })
       }
     }, {})
   );
