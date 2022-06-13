@@ -221,3 +221,23 @@
 .personalize {
   height: 100%;
 }
+
+.layout-picker-image {
+  max-height: 80vh;
+  position: relative;
+}
+
+.layout-picker-image img {
+  max-height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.layout-selected {
+  filter: saturate(0);
+}
+
+.layout-ghost {
+  opacity: 0.75;
+}

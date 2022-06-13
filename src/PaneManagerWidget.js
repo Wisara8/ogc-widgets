@@ -6,6 +6,7 @@ import Personalize from './components/Personalize.js';
 import { UserInputContext } from './contexts.js';
 import { useContext } from 'react';
 import useGoogleSheet from './hooks/useGoogleSheet.js';
+import LayoutPicker from './LayoutPicker';
 // import aTeam from './assets/ateam.jpeg';
 
 // WORK IN PROGRESS
@@ -104,8 +105,11 @@ const ItemContentArea = ({ items, updateSelected, selections }) => {
       {
         selectedCategory === "Personalize" ?
           <Personalize />
-          :
-          <CategoryDetails items={items} rightSideFocus={rightSideFocus} setRightSideFocus={setRightSideFocus} updateSelected={updateSelected} selections={selections} />
+          : selectedCategory === "Layout" ?
+          <OneThirdTwoThirdsLayout>
+            <LayoutPicker />
+          </OneThirdTwoThirdsLayout>
+          : <CategoryDetails items={items} rightSideFocus={rightSideFocus} setRightSideFocus={setRightSideFocus} updateSelected={updateSelected} selections={selections} />
       }
     </section>
   )
@@ -125,7 +129,8 @@ const PaneManagerWidget = () => {
     const appCategoriesSS = appData.map(item => item.categories).filter((value, index, self) => self.indexOf(value) === index);
     const appCategories = {};
     appCategoriesSS.forEach(category => appCategories[category] = category);
-    return appCategories;
+    console.log(appCategories);
+    return { ...appCategories, Layout: 'Layout', };
   }
 
   // useEffect(() => {
