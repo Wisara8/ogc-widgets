@@ -1,10 +1,12 @@
+// Obsolete Data, refer to Google Sheet for current
+
 export const CATEGORIES = {
   personalize: "Personalize",
   vans: "Vans",
   weapons: "Weapons",
   sensors: "Sensors",
 };
-// add userinput category and to display new input component instead of van categories
+
 export const data = [
   {
     categories: [CATEGORIES.vans],

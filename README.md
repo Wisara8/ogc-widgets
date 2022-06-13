@@ -20,6 +20,14 @@ sheet or range within that document that you want to load.
 
 **Activate Google Sheets API** - Remember to activate the Sheets API or you will get a 403 - Permission Denied error. Follow the steps here: https://developers.google.com/workspace/guides/create-project once the project and API key are created.
 
+### Deploying to Github Pages
+First build the version of the app you want to deploy `yarn build`
+Second make sure /build is not in the .gitignore before commiting
+  `git add .`
+  `git commit`
+Third use the following to set the branch to gh-pages 
+  `git subtree push --prefix build origin gh-pages`
+
 ### Available Scripts
 
 In the project directory, you can run:
