@@ -6,6 +6,8 @@ import { UserInputContext } from './contexts.js';
 import { useContext } from 'react';
 import useGoogleSheet from './hooks/useGoogleSheet.js';
 import LayoutPicker from './LayoutPicker';
+import Modal from './components/Modal';
+
 
 // WORK IN PROGRESS
 
@@ -189,13 +191,13 @@ const ItemContentArea = ({ items, updateSelected, selections }) => {
       {
         selectedCategory === "Personalize" ?
           <Personalize />
-        : selectedCategory === "Layout" ?
-          <OneThirdTwoThirdsLayout>
-            <LayoutPicker />
-          </OneThirdTwoThirdsLayout>
-        : selectedCategory === "Interior" ?
-          <Interior />
-        : <CategoryDetails items={items} rightSideFocus={rightSideFocus} setRightSideFocus={setRightSideFocus} updateSelected={updateSelected} selections={selections} />
+          : selectedCategory === "Layout" ?
+            <OneThirdTwoThirdsLayout>
+              <LayoutPicker />
+            </OneThirdTwoThirdsLayout>
+            : selectedCategory === "Interior" ?
+              <Interior />
+              : <CategoryDetails items={items} rightSideFocus={rightSideFocus} setRightSideFocus={setRightSideFocus} updateSelected={updateSelected} selections={selections} />
       }
     </section>
   )
@@ -210,6 +212,7 @@ const PaneManager = () => {
   const [title, setTitle] = useState("Give Your Van a Name");
   const [budget, setBudget] = useState(120000);
   const [isOffgrid, setIsOffgrid] = useState("yes");
+  const [openModal, setOpenModal] = useState(false);
 
   function getCategories(appData) {
     const appCategoriesSS = appData.map(item => item.categories).filter((value, index, self) => self.indexOf(value) === index);
@@ -285,12 +288,33 @@ const PaneManager = () => {
     setIsOffgrid(e);
   }
 
+  function sendData() {
+    fetch('http://localhost:8000/ogc', {
+      method: "post",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+
+      body: JSON.stringify({
+        budget: budget
+      })
+    })
+      .then((response) => {
+        return response.text()
+      })
+      .then((response) => {
+        console.log(response)
+      })
+  };
+
   if (loading || !appData) return <pre>⚡️ Loading ⚡️</pre>
   const items = appData.filter((item) => item.categories === selectedCategory);
 
   return (
-    <UserInputContext.Provider value={{ title, selectedCategory, updateTitle, budget, updateBudget, updateSelected, isOffgrid, updateIsOffgrid }}>
+    <UserInputContext.Provider value={{ title, selectedCategory, updateTitle, budget, updateBudget, updateSelected, isOffgrid, updateIsOffgrid, setOpenModal, openModal, sendData }}>
       <main className="layout-manager">
+        {openModal && <Modal />}
         <SideBar categories={appCategories} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} selections={selections} appData={appData} getPriceByCategory={getPriceByCategory} />
         <ItemContentArea items={items} updateSelected={updateSelected} selections={selections} />
         <BottomBar selections={selections} appData={appData} />

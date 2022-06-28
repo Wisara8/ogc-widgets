@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import createGoogleSheet from '../hooks/createGoogleSheet';
 
 const BottomBar = ({ selections, appData }) => {
-  const { title, budget, updateSelected } = useContext(UserInputContext);
+  const { title, budget, updateSelected, setOpenModal, openModal } = useContext(UserInputContext);
   const pillList = [];
   const currentCost = sumSelectedPrices(appData, selections);
   for (const [key, value] of Object.entries(selections)) {
@@ -13,25 +13,25 @@ const BottomBar = ({ selections, appData }) => {
     }
   };
 
-  function sendData() {
-    fetch('http://localhost:8000/ogc', {
-      method: "post",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
+  // function sendData() {
+  //   fetch('http://localhost:8000/ogc', {
+  //     method: "post",
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json'
+  //     },
 
-      body: JSON.stringify({
-        budget: budget
-      })
-    })
-      .then((response) => {
-        return response.text()
-      })
-      .then((response) => {
-        console.log(response)
-      })
-  };
+  //     body: JSON.stringify({
+  //       budget: budget
+  //     })
+  //   })
+  //     .then((response) => {
+  //       return response.text()
+  //     })
+  //     .then((response) => {
+  //       console.log(response)
+  //     })
+  // };
 
   function sumSelectedPrices(appData, selections) {
     return appData.reduce((acc, item) => selections[item.title] ? acc + item.price : acc, 0);
@@ -72,9 +72,13 @@ const BottomBar = ({ selections, appData }) => {
       {/* <button className="submit-button" onClick={() => createGoogleSheet(title)}>
         Submit
       </button> */}
-      <button className="submit-button" onClick={sendData}>
+      {/* <button className="submit-button" onClick={sendData}>
+        Submit
+      </button> */}
+      <button className="submit-button" onClick={() => { setOpenModal(true) }}>
         Submit
       </button>
+
     </div>
   )
 }
