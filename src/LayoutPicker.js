@@ -4,9 +4,9 @@ function LayoutPicker() {
   const [selected, setSelected] = useState('The Cozy Cabin');
   const [hovered, setHovered] = useState(null);
   const imgMap = {
-    'The Cozy Cabin': '/layout-cabin.png',
-    'The Adventurers': '/layout-adventure.png',
-    'The Entrepreneur': '/layout-entrepreneur.png',
+    'The Cozy Cabin': 'layout-cabin.png',
+    'The Adventurers': 'layout-adventure.png',
+    'The Entrepreneur': 'layout-entrepreneur.png',
   };
   return (
     <>
@@ -24,13 +24,13 @@ function LayoutPicker() {
   )
 }
 
-function MenuItem({ title, price, selected, onHover=()=>{}, onSelect=()=>{} }) {
+function MenuItem({ title, price, selected, onHover = () => { }, onSelect = () => { } }) {
   const isSelected = selected === title ? 'selected' : '';
   const classList = ['cardlike', 'light', 'menu-item', isSelected].join(" ");
   return (
     <div className={classList} onClick={() => onSelect(title)} onMouseOver={() => onHover(title)} onMouseOut={() => onHover(null)}>
-    <h3>{title}</h3>
-    <p>${price}</p>
+      <h3>{title}</h3>
+      <p>${price}</p>
     </div>
   )
 }
