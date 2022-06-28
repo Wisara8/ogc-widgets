@@ -13,6 +13,26 @@ const BottomBar = ({ selections, appData }) => {
     }
   };
 
+  function sendData() {
+    fetch('http://localhost:8000/ogc', {
+      method: "post",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+
+      body: JSON.stringify({
+        budget: budget
+      })
+    })
+      .then((response) => {
+        return response.text()
+      })
+      .then((response) => {
+        console.log(response)
+      })
+  };
+
   function sumSelectedPrices(appData, selections) {
     return appData.reduce((acc, item) => selections[item.title] ? acc + item.price : acc, 0);
   };
@@ -49,7 +69,10 @@ const BottomBar = ({ selections, appData }) => {
           }
         </div>
       </div>
-      <button className="submit-button" onClick={() => createGoogleSheet(title)}>
+      {/* <button className="submit-button" onClick={() => createGoogleSheet(title)}>
+        Submit
+      </button> */}
+      <button className="submit-button" onClick={sendData}>
         Submit
       </button>
     </div>
