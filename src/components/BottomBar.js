@@ -72,9 +72,6 @@ const BottomBar = ({ selections, appData }) => {
       {/* <button className="submit-button" onClick={() => createGoogleSheet(title)}>
         Submit
       </button> */}
-      {/* <button className="submit-button" onClick={sendData}>
-        Submit
-      </button> */}
       <button className="submit-button" onClick={() => { setOpenModal(true) }}>
         Submit
       </button>
