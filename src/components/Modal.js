@@ -6,7 +6,7 @@ const Modal = () => {
   const { setOpenModal, sendData } = useContext(UserInputContext);
 
   return (
-    <div className="modalBackground">
+    <div className="modalOverlay">
       <div className="modalContainer">
         <div className="titleCloseBtn">
           <button
