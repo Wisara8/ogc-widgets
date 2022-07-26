@@ -9,8 +9,6 @@ import LayoutPicker from './LayoutPicker';
 import Modal from './components/Modal';
 
 
-// WORK IN PROGRESS
-
 const OneThirdTwoThirdsLayout = (props) => {
   return (
     <main className='one-third-two-thirds'>
