@@ -213,20 +213,29 @@ const PaneManager = () => {
   const [budget, setBudget] = useState(120000);
   const [isOffgrid, setIsOffgrid] = useState("yes");
   const [openModal, setOpenModal] = useState(false);
+  const pricePerCategory = Object.fromEntries(Object.entries(appCategories).map(
+    ([k, category]) => [k, getPriceByCategory(category, selections, appData)]));
 
   function getCategories(appData) {
     const appCategoriesSS = appData.map(item => item.categories).filter((value, index, self) => self.indexOf(value) === index);
     const appCategories = {};
     appCategoriesSS.forEach(category => appCategories[category] = category);
-    console.log(appCategories);
     return { ...appCategories, Layout: 'Layout', };
   }
 
+  // function getPriceByCategory(category, selections, appData) {
+  //   const selectedItemsInCategory = getSelectedItemsByCategory(category, selections, appData);
+  //   return selectedItemsInCategory.reduce((acc, item) => {
+  //     return acc + item.price;
+  //   }, 0);
+
   function getPriceByCategory(category, selections, appData) {
     const selectedItemsInCategory = getSelectedItemsByCategory(category, selections, appData);
-    return selectedItemsInCategory.reduce((acc, item) => {
+    const categorySum = selectedItemsInCategory.reduce((acc, item) => {
       return acc + item.price;
     }, 0);
+    // setPricePerCategory({ ...pricePerCategory, category: categorySum });
+    return categorySum;
   }
 
   function getSelectedItemsByCategory(category, selections, appData) {
@@ -253,10 +262,8 @@ const PaneManager = () => {
     //check list of items grouped per category for selected & deselect if true
     const alreadySelected = appData.filter(item => matchesCategory(item, currentCategory) && isSelected(item, selections));
     if (alreadySelected[0] !== undefined) {
-      console.log("if check: ", alreadySelected[0].title);
       // setSelections({ ...selections, [alreadySelected[0].title]: false });
       setSelections(previousSelections => ({ ...previousSelections, [alreadySelected[0].title]: false }));
-      console.log("selections: ", selections);
 
     }
   }
@@ -297,7 +304,8 @@ const PaneManager = () => {
       },
 
       body: JSON.stringify({
-        budget: budget
+        budget: budget,
+        pricePerCategory: pricePerCategory
       })
     })
       .then((response) => {
